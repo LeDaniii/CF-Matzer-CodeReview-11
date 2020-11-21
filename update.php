@@ -1,7 +1,15 @@
 <?php
 
+ob_start();
+session_start();
+
 require_once 'php/component.php';
 require_once 'php/db.php';
+
+if (!isset($_SESSION['admin'])) {
+    header("Location: register.php");
+}
+
 $con = createdb();
 
 if ($_GET["id"]) {
