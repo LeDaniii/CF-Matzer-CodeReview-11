@@ -61,6 +61,7 @@ function createData()
 
 // ########## Get Data from DataBase Start ##########
 
+// get all
 function getData()
 {
     $sql = "select * from pets";
@@ -72,8 +73,7 @@ function getData()
     }
 }
 
-// ########## Get Data from DataBase End ##########
-
+// get mature
 function getMature()
 {
     $sql = "select * from pets where pet_age >= 8";
@@ -84,3 +84,43 @@ function getMature()
         return $result;
     }
 }
+
+// get young
+function getYoung()
+{
+    $sql = "select * from pets where pet_age <= 8";
+
+    $result = mysqli_query($GLOBALS['con'], $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        return $result;
+    }
+}
+
+// get small
+function getSmall()
+{
+    $sql = "select * from pets where pet_size = 'Small'";
+
+    $result = mysqli_query($GLOBALS['con'], $sql);
+    // $result = $GLOBALS['con']->query($sql) or die($GLOBALS['con']->error);
+    // echo $result;
+    if (mysqli_num_rows($result) > 0) {
+        return $result;
+    }
+}
+
+// get medium and big
+function getmedbig()
+{
+    $sql = "select * from pets where pet_size = 'Medium' or pet_size = 'Large'";
+
+    $result = mysqli_query($GLOBALS['con'], $sql);
+    // $result = $GLOBALS['con']->query($sql) or die($GLOBALS['con']->error);
+    // echo $result;
+    if (mysqli_num_rows($result) > 0) {
+        return $result;
+    }
+}
+
+// ########## Get Data from DataBase End ##########

@@ -39,6 +39,7 @@ if (!isset($_SESSION['user']) && (!isset($_SESSION['admin']))) {
             <?php buttonElement("btn-mature", "btn btn-primary my-2", "Show mature animals", "mature", "dat-toggle='tooltip' data-placement='bottom' title='mature'")?>
             <?php buttonElement("btn-young", "btn btn-primary my-2", "Show young animals", "young", "dat-toggle='tooltip' data-placement='bottom' title='young'")?>
             <?php buttonElement("btn-small", "btn btn-primary my-2", "Show small animals", "small", "dat-toggle='tooltip' data-placement='bottom' title='small'")?>
+            <?php buttonElement("btn-medbig", "btn btn-primary my-2", "Show medium and big animals", "medbig", "dat-toggle='tooltip' data-placement='bottom' title='medbig'")?>
             <a href="logout.php?logout" class="btn btn-danger  text-white my-2" role="button" aria-pressed="true">Logout
                 <i class="fas fa-sign-out-alt"></i></a>
 
@@ -157,7 +158,7 @@ if (isset($_POST['read']) && (isset($_SESSION['admin']))) {
     }
 }
 
-// mature animals only
+// ---------- mature animals only ----------
 // Admin
 if (isset($_POST['mature']) && (isset($_SESSION['admin']))) {
     $result = getMature();
@@ -168,7 +169,7 @@ if (isset($_POST['mature']) && (isset($_SESSION['admin']))) {
     }
 }
 // User
-if (isset($_POST['read']) && (isset($_SESSION['user']))) {
+if (isset($_POST['mature']) && (isset($_SESSION['user']))) {
     $result = getMature();
     if ($result) {
         while ($row = mysqli_fetch_assoc($result)) {
@@ -177,22 +178,62 @@ if (isset($_POST['read']) && (isset($_SESSION['user']))) {
     }
 }
 
-// young animals only
-if (isset($_POST['young'])) {
-    $result = getData();
+// ---------- young animals only -----------
+// Admin
+if (isset($_POST['young']) && (isset($_SESSION['admin']))) {
+    $result = getYoung();
     if ($result) {
         while ($row = mysqli_fetch_assoc($result)) {
             echo cardElementAdmin($row['pet_name'], $row['pet_img'], $row['pet_size'], $row['pet_animal'], $row['pet_age'], $row['pet_description'], $row['pet_location'], $row['pet_price'], $row['pet_id']);
         }
     }
 }
+// User
+if (isset($_POST['young']) && (isset($_SESSION['user']))) {
+    $result = getYoung();
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo cardElement($row['pet_name'], $row['pet_img'], $row['pet_size'], $row['pet_animal'], $row['pet_age'], $row['pet_description'], $row['pet_location'], $row['pet_price'], ['pet_id']);
+        }
+    }
+}
 
-// small animals only
-if (isset($_POST['small'])) {
-    $result = getData();
+// ---------- small animals only ----------
+// Admin
+if (isset($_POST['small']) && (isset($_SESSION['admin']))) {
+    $result = getSmall();
     if ($result) {
         while ($row = mysqli_fetch_assoc($result)) {
             echo cardElementAdmin($row['pet_name'], $row['pet_img'], $row['pet_size'], $row['pet_animal'], $row['pet_age'], $row['pet_description'], $row['pet_location'], $row['pet_price'], $row['pet_id']);
+        }
+    }
+}
+// User
+if (isset($_POST['small']) && (isset($_SESSION['user']))) {
+    $result = getSmall();
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo cardElement($row['pet_name'], $row['pet_img'], $row['pet_size'], $row['pet_animal'], $row['pet_age'], $row['pet_description'], $row['pet_location'], $row['pet_price'], ['pet_id']);
+        }
+    }
+}
+
+// ---------- Medium and Big animals only ----------
+// Admin
+if (isset($_POST['medbig']) && (isset($_SESSION['admin']))) {
+    $result = getmedbig();
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo cardElementAdmin($row['pet_name'], $row['pet_img'], $row['pet_size'], $row['pet_animal'], $row['pet_age'], $row['pet_description'], $row['pet_location'], $row['pet_price'], $row['pet_id']);
+        }
+    }
+}
+// User
+if (isset($_POST['medbig']) && (isset($_SESSION['user']))) {
+    $result = getmedbig();
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo cardElement($row['pet_name'], $row['pet_img'], $row['pet_size'], $row['pet_animal'], $row['pet_age'], $row['pet_description'], $row['pet_location'], $row['pet_price'], ['pet_id']);
         }
     }
 }
