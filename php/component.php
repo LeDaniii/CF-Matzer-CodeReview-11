@@ -58,7 +58,7 @@ function cardElementAdmin($name, $img, $size, $animal, $age, $description, $loca
                         <li class=\"list-group-item\">
                             <h1>$name</h1>
                         </li>
-                        <li class=\"list-group-item\" >$id</li>
+                        <li class=\"list-group-item\" >ID: $id</li>
                         <li class=\"list-group-item\">$animal</li>
                         <li class=\"list-group-item\">$size</li>
                         <li class=\"list-group-item\">Age: $age</li>
