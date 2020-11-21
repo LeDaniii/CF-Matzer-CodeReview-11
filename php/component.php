@@ -20,11 +20,12 @@ function buttonElement($btnid, $styleclass, $text, $name, $attr)
     echo $btn;
 }
 
-// Card
+// ########### Cards ###########
+// ----------- User Card -----------
 
 function cardElement($name, $img, $size, $animal, $age, $description, $location, $price, $id)
 {
-    $card = "   <div class=\"col-5 bg-dark py-4 row\">
+    $card = "   <div class=\"col-5 bg-dark py-4 my-2 row\">
                 <div class=\"col-6 my-auto\">
                     <img class=\"img-fluid \" src=\"$img\" alt=\"\">
                 </div>
@@ -47,6 +48,7 @@ function cardElement($name, $img, $size, $animal, $age, $description, $location,
     echo $card;
 }
 
+// ----------- Admin Card -----------
 function cardElementAdmin($name, $img, $size, $animal, $age, $description, $location, $price, $id)
 {
     $card = "   <div class=\"col-5 bg-dark py-4 my-2 row\">

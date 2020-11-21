@@ -73,3 +73,14 @@ function getData()
 }
 
 // ########## Get Data from DataBase End ##########
+
+function getMature()
+{
+    $sql = "select * from pets where pet_age >= 8";
+
+    $result = mysqli_query($GLOBALS['con'], $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        return $result;
+    }
+}

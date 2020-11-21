@@ -1,3 +1,5 @@
+<!-- ############### Dumping Area ############### -->
+
 http: //localhost/projects/CF-CR11/phpRegistrationPages/register.php
 
 

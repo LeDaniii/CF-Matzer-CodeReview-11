@@ -28,15 +28,33 @@ if (!isset($_SESSION['user']) && (!isset($_SESSION['admin']))) {
 </head>
 
 <body>
-    <button type="button" class="btn btn-success offset-10 my-2" data-toggle="modal" data-target="#exampleModal"
-        data-whatever="@getbootstrap"><i class="fas fa-plus-square"></i> Add New Pets</button>
+    <!-- header -->
+    <div class="container-fluid bg-dark text-center">
+        <h1 class="text-white">Pet Adoption</h1>
+    </div>
+    <!------------ Buttons Start ------------>
+    <div class="container-fluid">
+        <form class="row d-flex justify-content-around py-4 bg-dark " action="" method="post">
+            <?php buttonElement("btn-read", "btn btn-primary my-2", "Show everything", "read", "dat-toggle='tooltip' data-placement='bottom' title='read'")?>
+            <?php buttonElement("btn-mature", "btn btn-primary my-2", "Show mature animals", "mature", "dat-toggle='tooltip' data-placement='bottom' title='mature'")?>
+            <?php buttonElement("btn-young", "btn btn-primary my-2", "Show young animals", "young", "dat-toggle='tooltip' data-placement='bottom' title='young'")?>
+            <?php buttonElement("btn-small", "btn btn-primary my-2", "Show small animals", "small", "dat-toggle='tooltip' data-placement='bottom' title='small'")?>
+            <a href="logout.php?logout" class="btn btn-danger  text-white my-2" role="button" aria-pressed="true">Logout
+                <i class="fas fa-sign-out-alt"></i></a>
 
-
-    <form class="fixed-bottom" action="" method="post">
-        <a href="logout.php?logout" class="btn btn-danger btn-lg active offset-10 my-5  text-white" role="button"
-            aria-pressed="true">Logout <i class="fas fa-sign-out-alt"></i></a>
-        <?php buttonElement("btn-read", "btn btn-primary offset-10 mb-2", "<i class='fas fa-sync'></i> Load", "read", "dat-toggle='tooltip' data-placement='bottom' title='read'")?>
-    </form>
+        </form>
+    </div>
+    <!------------ Buttons End ------------>
+    <!---------- Create Button only shows up on a Admin Session Start --------->
+    <div class="container-fluid bg-dark">
+        <?php
+if (isset($_SESSION['admin'])) {
+    echo "<button type=\"button\" class=\"btn btn-success offset-10 my-2\" data-toggle=\"modal\" data-target=\"#exampleModal\"
+        data-whatever=\"@getbootstrap\"><i class=\"fas fa-plus-square\"></i> Add New Pets</button>";}
+?>
+    </div>
+    <!---------- Create Button only shows up on a Admin Session End --------->
+    <!------------ Create Modal Start ------------>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -113,10 +131,13 @@ if (!isset($_SESSION['user']) && (!isset($_SESSION['admin']))) {
             </div>
         </div>
     </div>
+    <!------------ Create Modal End ------------>
+    <!------------ Create Card Logic for Admin and User start ------------>
     <div class="contrainer-fluid p-3">
         <div class="row d-flex justify-content-around">
             <?php
 
+// read all User Cards
 if (isset($_POST['read']) && (isset($_SESSION['user']))) {
     $result = getData();
     if ($result) {
@@ -126,6 +147,7 @@ if (isset($_POST['read']) && (isset($_SESSION['user']))) {
     }
 }
 
+// read all Admin Cards
 if (isset($_POST['read']) && (isset($_SESSION['admin']))) {
     $result = getData();
     if ($result) {
@@ -135,7 +157,50 @@ if (isset($_POST['read']) && (isset($_SESSION['admin']))) {
     }
 }
 
+// mature animals only
+// Admin
+if (isset($_POST['mature']) && (isset($_SESSION['admin']))) {
+    $result = getMature();
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo cardElementAdmin($row['pet_name'], $row['pet_img'], $row['pet_size'], $row['pet_animal'], $row['pet_age'], $row['pet_description'], $row['pet_location'], $row['pet_price'], $row['pet_id']);
+        }
+    }
+}
+// User
+if (isset($_POST['read']) && (isset($_SESSION['user']))) {
+    $result = getMature();
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo cardElement($row['pet_name'], $row['pet_img'], $row['pet_size'], $row['pet_animal'], $row['pet_age'], $row['pet_description'], $row['pet_location'], $row['pet_price'], ['pet_id']);
+        }
+    }
+}
+
+// young animals only
+if (isset($_POST['young'])) {
+    $result = getData();
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo cardElementAdmin($row['pet_name'], $row['pet_img'], $row['pet_size'], $row['pet_animal'], $row['pet_age'], $row['pet_description'], $row['pet_location'], $row['pet_price'], $row['pet_id']);
+        }
+    }
+}
+
+// small animals only
+if (isset($_POST['small'])) {
+    $result = getData();
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo cardElementAdmin($row['pet_name'], $row['pet_img'], $row['pet_size'], $row['pet_animal'], $row['pet_age'], $row['pet_description'], $row['pet_location'], $row['pet_price'], $row['pet_id']);
+        }
+    }
+}
+
 ?>
+            <!------------ Create Card Logic for Admin and User End ------------>
+
+            <!------------ Prototype Card Logic for Admin and User Start ------------>
             <!-- <div class="col-5 bg-dark py-4 row">
                 <div class="col-6 my-auto">
                     <img class="img-fluid " src="https://i.insider.com/5ef39abd3f737017f94f3255?width=750&format=jpeg&auto=webp
@@ -172,6 +237,8 @@ if (isset($_POST['read']) && (isset($_SESSION['admin']))) {
                     </ul>
                 </div>
             </div> -->
+            <!------------ Prototype Card Logic for Admin and User End ------------>
+
         </div>
     </div>
 
