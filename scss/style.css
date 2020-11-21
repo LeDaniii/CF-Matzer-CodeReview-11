@@ -1,0 +1,18 @@
+.btn {
+  padding: 0.5rem 3rem;
+}
+
+.success {
+  background: lightgreen;
+  padding: 1rem;
+}
+
+.error {
+  background: tomato;
+  padding: 1rem;
+}
+
+img {
+  min-height: 20rem;
+}
+/*# sourceMappingURL=style.css.map */
