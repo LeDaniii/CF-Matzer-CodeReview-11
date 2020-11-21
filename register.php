@@ -87,7 +87,7 @@ if (isset($_POST['btn-signup'])) {
     <meta name="Description" content="Enter your description here" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css">
-    <link rel="stylesheet" href="./scss/style.css">
+    <link rel="stylesheet" href="scss/style.css">
     <title>LogIn and Registration System0,
     </title>
 </head>
